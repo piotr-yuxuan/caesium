@@ -1,6 +1,6 @@
 (ns caesium.byte-bufs
   "Byte buffer utilities, like conversions and length."
-  (:require [byte-streams :as bs])
+  (:require [clj-commons.byte-streams :as bs])
   (:import (java.nio ByteBuffer)))
 
 (def bytes= bs/bytes=)

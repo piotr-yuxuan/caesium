@@ -1,4 +1,4 @@
-(defproject caesium "0.15.0-SNAPSHOT"
+(defproject caesium "0.16.0-piotr-yuxuan-SNAPSHOT"
   :description "libsodium for clojure"
   :url "https://github.com/lvh/caesium"
   :deploy-repositories [["releases" {:url "https://repo.clojars.org"
@@ -10,7 +10,7 @@
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [com.github.jnr/jnr-ffi "2.1.12"]
                  [commons-codec/commons-codec "1.14"]
-                 [byte-streams "0.2.4"]
+                 [org.clj-commons/byte-streams "0.2.12-piotr-yuxuan-SNAPSHOT"]
                  [org.clojure/math.combinatorics "0.1.6"]
                  [medley "1.2.0"]
                  [com.taoensso/timbre "4.10.0"]]
