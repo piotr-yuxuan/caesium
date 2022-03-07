@@ -13,4 +13,4 @@
   problem: just run it synchronously in your application's init
   routine."
   []
-  (.sodium_init sodium))
+  (.sodium_init (sodium)))

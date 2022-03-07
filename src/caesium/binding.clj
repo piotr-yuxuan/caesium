@@ -12,10 +12,10 @@
            [jnr.ffi.annotations In Out Pinned LongLong]
            [jnr.ffi.types size_t]))
 
-(def ^:private bound-byte-type-syms
+(def bound-byte-type-syms
   '[bytes java.nio.ByteBuffer])
 
-(defn ^:private permuted-byte-types
+(defn permuted-byte-types
   "Given a method signature, return signatures for all bound byte types.
 
   Signature should be as per [[bound-fns]], with byte arguments annotated with
@@ -29,7 +29,7 @@
                         (vary-meta arg assoc :tag tag)))]]
       [name (mapv ann args)])))
 
-(def ^:private raw-bound-fns
+(def raw-bound-fns
   "See [[bound-fns]], but without the permutations."
   '[[^int sodium_init []]
     [^String sodium_version_string []]
@@ -682,7 +682,7 @@
     [^int crypto_core_ristretto255_scalar_is_canonical
      [^bytes ^{Pinned {}} s]]])
 
-(def ^:private bound-fns
+(def bound-fns
   "A mapping of type- and jnr.ffi-annotated bound method symbols to
   respective argspec.
 
@@ -698,13 +698,13 @@
   same char* fn with different JVM byte types)."
   (mapcat permuted-byte-types raw-bound-fns))
 
-(defmacro ^:private defsodium
+(defmacro defsodium
   []
   `(definterface ~'Sodium ~@bound-fns))
 
 (defsodium)
 
-(defn ^:private load-sodium
+(defn load-sodium
   "Load native libsodium library."
   ([]
    (load-sodium "sodium"))
@@ -717,14 +717,14 @@
      (catch Exception e
        (throw (ClassNotFoundException. "unable to load native libsodium; is it installed?" e))))))
 
-(def ^Sodium sodium
+#_(def ^Sodium sodium
   "The sodium library singleton instance."
   (load-sodium))
 
 (assert (#{0 1} (.sodium_init sodium)))
 ;; TODO When does this get called? Guaranteed from 1 thread?
 
-(defn ^:private c-name
+(defn c-name
   "Resolves the fn name in the current ns to the fn name in the equivalent
   libsodium C pseudo-namespace.
 
@@ -738,7 +738,7 @@
         path (concat (remove fn-name-parts prefix) [fn-name])]
     (symbol (s/join "_" path))))
 
-(defn ^:private java-call-sym
+(defn java-call-sym
   "Creates the Clojure Java method call syntax to call a method on the
   libsodium binding."
   [c-name]
